@@ -1,0 +1,44 @@
+El sistema a implementar, seria el de una discografica, en el que se va a disponer de las siguientes funcionalidades:
+
+1_ Base de datos de Cantantes o banda, el cual cuenta con los siguientes datos:
+
+    _ Nombre de cantante o banda
+    _ Edad
+    _ Año de inicio de carrera
+    _ Año de fin de su carrera
+    _ Premios recibidos durante su carrera
+
+2_ Pantalla de ABM de Discos de cantantes:
+
+    _ Nombre de disco (Requerido, no puede estar vacio)
+    _ Año de lanzamiento (Requerido, no puede estar vacio, tiene que ser un numero)
+    _ Cantante o banda (Requerido, no puede estar vacio)
+    _ Foto del disco (subida a la carpeta imgs/discos con un nombre y en formato jpg)
+    _ Genero
+
+3_ Pantalla de ABM de Canciones de un disco:
+
+    _ Nombre de cancion (Requerido, no puede estar vacio)
+    _ Duracion (En minutos. Requerido, no puede estar vacio, tiene que ser un numero)
+    _ Orden en el disco (Requerido, no puede estar vacio, tiene que ser un numero)
+
+4_ Pantalla para mostrar una lista de cards con los discos, y en cada card va a haber:
+
+    _ Nombre del disco
+    _ Nombre de cantante o banda
+    _ Foto de 200 x 200 del disco
+    _ Boton que abre un modal para ver detalles del disco
+        _ Nombre del disco
+        _ Genero
+        _ Listado de canciones:
+            _ Orden y nombre de la cancion
+            _ Duracion de la cancion
+    _ Boton para seleccionar como disco favorito
+
+5_ Input de busqueda en pantalla de lista de cards de discos, en donde se puede buscar por:
+
+    _ Nombre de disco
+    _ Nombre de cantante o banda
+
+6_ Pantalla con listado de discos favoritos, donde el contenido va a ser el mismo que se ve en la lista de discos
+, pero en lugar de tener el boton para seleccionar como favorito, va a tener uno para eliminar de favoritos
