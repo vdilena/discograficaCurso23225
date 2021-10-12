@@ -21,7 +21,7 @@
 class Disco {
 
     constructor(nombre, anio, bandaCantante, genero, canciones) {
-        
+
         this.nombre = nombre;
         this.anio = anio;
         this.bandaCantante = bandaCantante;
@@ -31,6 +31,8 @@ class Disco {
 
     verDatosResumen() {
 
+        //console.log(this);
+
         document.write("<ul>");
         document.write("<li>Nombre: " + this.nombre + "</li>");
         document.write("<li>Año lanzamiento: " + this.anio + "</li>");
@@ -38,11 +40,18 @@ class Disco {
         document.write("<li>Genero: " + this.genero + "</li>");
         document.write("</ul>");
 
+        this.verCanciones();
         document.write("----------------------<br>");
     }
 
     verCanciones() {
-        // Voy a tener que hacer un for para mostrar la lista de canciones
+
+        for (const cancion of this.canciones) {
+
+            document.write("<ul>");
+            document.write("<li>" + cancion.ver() + "</li>");
+            document.write("</ul>");
+        }
     }
 }
 
@@ -56,26 +65,26 @@ class Cancion {
     }
 
     ver() {
-        document.write(this.orden + ". " + this.nombre + " <strong>(" + this.duracion + ")</strong>");
+        return this.orden + ". " + this.nombre + " <strong>(" + this.duracion + ")</strong>";
     }
 }
 
-function datosValidos (nombre, anio, bandaCantante) {
+function datosValidos(nombre, anio, bandaCantante) {
 
     let sonValidos = false;
 
-    if(nombre != "" && !isNaN(anio) && bandaCantante != "") {
+    if (nombre != "" && !isNaN(anio) && bandaCantante != "") {
         sonValidos = true;
     }
 
     return sonValidos;
 }
 
-function datosValidosCancion(nombre, duracion, orden){
+function datosValidosCancion(nombre, duracion, orden) {
 
     let sonValidos = false;
 
-    if(nombre != "" && !isNaN(duracion) && !isNaN(orden)) {
+    if (nombre != "" && !isNaN(duracion) && !isNaN(orden)) {
         sonValidos = true;
     }
 
@@ -92,8 +101,10 @@ function cargarDisco() {
     const SON_DATOS_VALIDOS = datosValidos(nombreDisco, anioLanzamiento, nombreBandaOCantante);
 
     let nuevoDisco = null;
-    if(SON_DATOS_VALIDOS) {
-        nuevoDisco  = new Disco(nombreDisco, anioLanzamiento, nombreBandaOCantante, genero);
+    if (SON_DATOS_VALIDOS) {
+
+        const canciones = [];
+        nuevoDisco = new Disco(nombreDisco, anioLanzamiento, nombreBandaOCantante, genero, canciones);
     }
 
     return nuevoDisco;
@@ -108,40 +119,78 @@ function cargarCancion() {
     const SON_DATOS_VALIDOS = datosValidosCancion(nombreCancion, duracion, orden);
 
     let nuevaCancion = null;
-    if(SON_DATOS_VALIDOS) {
+    if (SON_DATOS_VALIDOS) {
         nuevaCancion = new Cancion(nombreCancion, duracion, orden);
     }
 
     return nuevaCancion;
 }
 
-function verCancion(){
+function verCancion() {
 
     const CANCION = new Cancion(nombreCancion, duracion, orden);
 }
 
+function devolverDiscosBuscados(datoFiltro, discos) {
 
-let discoCargado = cargarDisco();
-let cancionCargada = cargarCancion();
-discoCargado.verDatosResumen();
-cancionCargada.ver();
 
-/*let opcion = prompt("Elegir opcion a procesar: DISCO, CANCION, VER_DISCO, VER_DETALLE");
+    const discosEncontrados = discos.filter(disco => disco.nombre.includes(datoFiltro) || disco.bandaCantante.includes(datoFiltro));
 
-switch (opcion) {
+    return discosEncontrados;
+}
 
-    case "DISCO":
-        cargarDisco();
-        break;
-    case "CANCION":
-        cargarCancion();
-        break;
-    case "VER_DISCO":
-        verCancion();
-        break;
-    case "VER_DETALLE":
-        verDetalle();
-        break;
-    default:
-        break;
-}*/
+function devolverFavorito(nombreDiscoFavorito, discos) {
+    return discos.find(disco => disco.nombre == nombreDiscoFavorito);
+}
+
+const discos = [];
+
+let terminarDeCargarDiscos = "";
+
+do {
+
+    let discoCargado = cargarDisco();
+
+    let cancionCargada = null;
+    let terminarDeCargar = "";
+    do {
+
+        cancionCargada = cargarCancion();
+        
+        discoCargado.canciones.push(cancionCargada);
+        terminarDeCargar = prompt("Seguir cargando canciones? Para finalizar FIN");
+
+    } while (terminarDeCargar.toUpperCase() != "FIN");
+
+    discos.push(discoCargado);
+    terminarDeCargarDiscos = prompt("Seguir cargando discos? Para finalizar FIN");
+
+} while (terminarDeCargarDiscos.toUpperCase() != "FIN");
+
+
+for (const disco of discos) {
+    disco.verDatosResumen();
+}
+
+let discoBuscado = prompt("ingrese nombre de disco o banda/cantante");
+let discoEncontrado = devolverDiscosBuscados(discoBuscado, discos);
+console.log(discoEncontrado);
+
+let discoFavorito = prompt("ingrese el nombre del disco favorito");
+const favoritos = [];
+
+let favorita = devolverFavorito(discoFavorito, discos);
+if(favorita) {
+    favoritos.push(favorita);
+}
+
+console.log(favoritos);
+//discoCargado.verDatosResumen();
+//cancionCargada.ver();
+
+/**
+ *  _ Implementar metodo Disco.verCanciones()
+    _ Agregar varios discos y varias canciones asociadas a los discos en un array.
+    _ Armar la funcionalidad de buscar disco (busqueda en array)
+    _ Seleccionar discos como favoritos y agregarlos al array de favoritos
+ */
