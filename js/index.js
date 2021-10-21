@@ -185,8 +185,6 @@ if(favorita) {
 }
 
 console.log(favoritos);
-//discoCargado.verDatosResumen();
-//cancionCargada.ver();
 
 /**
  *  _ Implementar metodo Disco.verCanciones()

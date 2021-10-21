@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Link a documentacion: https://getbootstrap.com/docs/5.1/getting-started/introduction/ -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <title>ABM Disco</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="text-center">ABM Disco</h1>
+        <form id="formDisco">
+            <div class="mb-3">
+                <label for="nombreDisco" class="form-label">Nombre del disco</label>
+                <input class="form-control" id="nombreDisco">
+            </div>
+
+            <div class="mb-3">
+                <label for="anioLanzamiento" class="form-label">Año de lanzamiento</label>
+                <input type="number" class="form-control" id="anioLanzamiento">
+            </div>
+
+            <div class="mb-3">
+                <label for="cantanteBanda" class="form-label">Cantante/Banda</label>
+                <select class="form-select" id="cantanteBanda">
+                    <option selected>Elija un cantante o banda</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="fotoDisco" class="form-label">Path foto del disco</label>
+                <input class="form-control" id="fotoDisco">
+            </div>
+
+            <div class="mb-3">
+                <label for="generoDisco" class="form-label">Genero del disco</label>
+                <input class="form-control" id="generoDisco">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </form>
+        <div id="mensajeGuardado"></div>
+        
+        <script src="Disco.js"></script>
+        <script src="abmDiscos.js"></script>
+    </div>
+</body>
+
+</html>
