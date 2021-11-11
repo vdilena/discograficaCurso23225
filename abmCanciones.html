@@ -14,11 +14,11 @@
 <body>
     <div class="container">
         <h1 class="text-center">ABM Canciones</h1>
-        <form>
+        <form id="formCanciones">
             <div class="mb-3">
                 <label for="disco" class="form-label">Disco</label>
                 <select class="form-select" id="disco">
-                    <option selected>Elija un disco</option>
+                    <option value="">Elija un disco</option>
                 </select>
             </div>
             <div class="mb-3">
@@ -37,6 +37,8 @@
             </div>
             <button type="submit" class="btn btn-primary">Guardar</button>
         </form>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="Cancion.js"></script>
         <script src="abmCanciones.js"></script>
     </div>
 </body>

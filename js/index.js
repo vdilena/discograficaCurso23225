@@ -20,28 +20,30 @@
 
 class Disco {
 
-    constructor(nombre, anio, bandaCantante, genero, canciones) {
+    constructor(nombre, anio, bandaCantante, genero, canciones, foto) {
 
         this.nombre = nombre;
         this.anio = anio;
         this.bandaCantante = bandaCantante;
         this.genero = genero;
         this.canciones = canciones;
+        this.foto = foto;
     }
 
     verDatosResumen() {
 
-        //console.log(this);
-
-        document.write("<ul>");
-        document.write("<li>Nombre: " + this.nombre + "</li>");
-        document.write("<li>Año lanzamiento: " + this.anio + "</li>");
-        document.write("<li>Cantante o banda: " + this.bandaCantante + "</li>");
-        document.write("<li>Genero: " + this.genero + "</li>");
-        document.write("</ul>");
-
-        this.verCanciones();
-        document.write("----------------------<br>");
+       return `
+       <div class="card text-center" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">${this.nombre}</h5>
+                <h4>${this.bandaCantante}</h4>
+                <img height="200px" width="200px" src="${this.foto}" alt="${this.nombre}">
+                <button class="btn btn-primary btnVerDisco" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal">Ver disco</button>
+                <button class="btn btn-success btnFavorito">Favorito</button>
+            </div>
+        </div>
+       `;
     }
 
     verCanciones() {
@@ -151,7 +153,7 @@ function obtenerImagenParaMostrar(imagenStorage) {
 
 const discos = [];
 
-let terminarDeCargarDiscos = "";
+/*let terminarDeCargarDiscos = "";
 
 do {
 
@@ -190,7 +192,7 @@ if (favorita) {
     favoritos.push(favorita);
 }
 
-console.log(favoritos);
+console.log(favoritos);*/
 
 /**
  *  _ Implementar metodo Disco.verCanciones()
@@ -198,3 +200,16 @@ console.log(favoritos);
     _ Armar la funcionalidad de buscar disco (busqueda en array)
     _ Seleccionar discos como favoritos y agregarlos al array de favoritos
  */
+
+// Primero vaciamos la lista harcodeada de cards
+$("#cardList").html("");
+
+// Accedemos a la lista de discos en storage
+const listaDiscos = JSON.parse(localStorage.getItem("discos"));
+
+// Recorremos la lista, y vamos cargando las cards
+for (const disco of listaDiscos) {
+    
+    const objetoDisco = new Disco(disco.nombre, disco.anio, disco.bandaCantante, disco.genero, [], obtenerImagenParaMostrar(disco.foto));
+    $("#cardList").append(objetoDisco.verDatosResumen());
+}
