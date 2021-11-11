@@ -1,12 +1,12 @@
 class Disco {
 
-    constructor(nombre, anio, bandaCantante, genero, pathFoto, canciones) {
+    constructor(nombre, anio, bandaCantante, genero, foto, canciones) {
 
         this.nombre = nombre;
         this.anio = anio;
         this.bandaCantante = bandaCantante;
         this.genero = genero;
-        this.pathFoto = pathFoto;
+        this.foto = foto;
         this.canciones = canciones;
     }
 

@@ -78,6 +78,50 @@ function guardarDiscoEnStorage(disco) {
     localStorage.setItem("discos", JSON.stringify(discosEnStorage));
 }
 
+function getBase64Image(img) {
+
+    var canvas = document.createElement("canvas");
+    canvas.width = img.width;
+    canvas.height = img.height;
+
+    var ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0);
+
+    var dataURL = canvas.toDataURL("image/png");
+
+    return dataURL.replace(/^data:image\/(png|jpeg);base64,/, "");
+}
+
+function guardarImagenBase64(imagen) {
+
+    let archivo = imagen.files[0];
+    let imagenElegida = document.getElementById("imagenElegida");
+
+    // Creamos el file reader
+    let fReader = new FileReader();
+
+    // Cuando termina de cargar el file reader, cargamos la imagen en el storage
+    fReader.onload = function (){
+
+        imagenElegida.src = fReader.result;
+        imagenElegida.onload = () => {
+            actualizarImagenEnStorage(getBase64Image(imagenElegida));
+        }
+    };
+
+    // Read the file to DataURL format.
+    fReader.readAsDataURL(archivo);
+}
+
+function actualizarImagenEnStorage(imagenBase64) {
+
+    //Obtengo ultimo elemento agregado al array
+    const discosActuales = JSON.parse(localStorage.getItem('discos'))
+    const ultimoDisco = discosActuales.pop();
+    ultimoDisco.foto = imagenBase64;
+    discosActuales.push(ultimoDisco);
+    localStorage.setItem('discos', JSON.stringify(discosActuales));
+}
 
 document.getElementById("formDisco").addEventListener("submit", (event) => {
 
@@ -86,12 +130,13 @@ document.getElementById("formDisco").addEventListener("submit", (event) => {
     const nombreDisco = document.getElementById("nombreDisco").value;
     const anioLanzamiento = Number(document.getElementById("anioLanzamiento").value);
     const cantanteBanda = cantantes.find(cantante => cantante.id == document.getElementById("cantanteBanda").value).cantanteOBanda ;
-    const fotoDisco = document.getElementById("fotoDisco").value;
     const generoDisco = document.getElementById("generoDisco").value;
-
+    const fotoDisco = null;
+    
     if(datosValidos(nombreDisco, anioLanzamiento, cantanteBanda)) {
-
+        
         const nuevoDisco = new Disco(nombreDisco, anioLanzamiento, cantanteBanda, generoDisco, fotoDisco, []);
         guardarDiscoEnStorage(nuevoDisco);
+        guardarImagenBase64(document.getElementById("fotoDisco"));
     }
-});
+}); 

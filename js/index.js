@@ -143,6 +143,12 @@ function devolverFavorito(nombreDiscoFavorito, discos) {
     return discos.find(disco => disco.nombre == nombreDiscoFavorito);
 }
 
+function obtenerImagenParaMostrar(imagenStorage) {
+
+    var dataImage = "data:image/png;base64," + imagenStorage;
+    return dataImage;
+}
+
 const discos = [];
 
 let terminarDeCargarDiscos = "";
@@ -156,7 +162,7 @@ do {
     do {
 
         cancionCargada = cargarCancion();
-        
+
         discoCargado.canciones.push(cancionCargada);
         terminarDeCargar = prompt("Seguir cargando canciones? Para finalizar FIN");
 
@@ -180,7 +186,7 @@ let discoFavorito = prompt("ingrese el nombre del disco favorito");
 const favoritos = [];
 
 let favorita = devolverFavorito(discoFavorito, discos);
-if(favorita) {
+if (favorita) {
     favoritos.push(favorita);
 }
 
